@@ -1,0 +1,84 @@
+<!--pages/missionDtails/missionDtails.wxml-->
+<wxs src="../../wxs/util.wxs" module="util"></wxs>
+<!-- 广告 -->
+<view class="ad">
+  <image lazy-load class="ad-image" src="{{adImage}}" mode="scaleToFill" />
+</view>
+<!-- 类型 -->
+<view class="classification mtb-10" wx:if="{{task.category1}}">{{task.category1}}</view>
+<!-- >{{task.category2}}>{{task.message.category.name}} -->
+<!-- 认证 -->
+<view wx:if="{{task.customer.isAuth==='01'}}" class="verified">该用户已实名认证</view>
+<view wx:else class="not-verified">该用户未实名认证注意风险</view>
+<!-- 标题 -->
+<view class="title mtb-10">
+  <block wx:if="{{task.message.category.name}}">
+    【{{task.message.category.name}}】
+  </block>
+  {{task.message.titleName}}
+</view>
+<!-- 发布者信息 -->
+<view class="announcer">
+  <view class="left">
+    <image class="img" src="{{task.customer.headImg}}" mode="scaleToFill"/>
+    <view class="right">
+      <view class="name">
+        <block wx:if="{{task.message.userName}}">{{task.message.userName}}</block>
+        <block wx:else>{{task.customer.nickName}}</block>
+        <image src="../../images/bll.png"></image>
+        <text>{{browseNum}}</text>
+      </view>
+      <view class="time">{{task.message.createDate}}</view>
+    </view>
+  </view>
+  <view class="btn">
+    <view class="favorite" bindtap="_setFavorite">{{collection?'取消收藏':'收藏'}}</view>
+    <button class="share" open-type="share" size="mini">分享</button>
+  </view>
+</view>
+
+<!-- 具体内容 -->
+<view class="content fs-0">
+  <view class="text">
+    {{task.message.describle}}
+  </view>
+  <view wx:for="{{commentList}}" wx:key='index' class="comment-item">
+    <view>{{item.comment}}</view>
+    <view class="time">{{item.createDate}}</view>
+  </view>
+  <view class="context" wx:if="{{isShow}}">
+    <!-- <label>内容：</label> -->
+    <textarea placeholder="在此输入评论内容" placeholder-class="place-style" bindinput="getParams" data-key="comment" value="{{comment}}"></textarea>
+    
+    <view>
+      <button size="mini" bindtap="send">发表</button>
+    </view>
+  </view>
+  
+  <view class="bottom-btn" wx:else>
+    <view class="praise" bindtap="praise">{{isPraise ? '已赞':'赞'}}</view>
+    <view class="comment" bindtap="comment">评论</view>
+  </view>
+  <block wx:for="{{3}}" wx:key="index">
+    <view class="detail-img">
+      <image lazy-load class="img" src="{{util._getImageUrl(task.message['img'+(index+1)])}}" mode="widthFix"></image>
+    </view>
+  </block>
+  <!-- 地址 -->
+  <view class="text" wx:if="{{task.message.address}}">地址：{{task.message.address}}</view>
+</view>
+<!-- 立即联系 -->
+<view class="footer" wx:if="{{task.message.phone}}">
+  <view class="contact" bindtap="_makePhoneCall">
+    <image class="img" src="/images/lw-ljlx.png" />
+    <text class="title">立即联系</text>
+  </view>
+</view>
+
+<!-- 海报图展示 -->
+<view v-if="{{showPoster}}" class="{{showPoster?'QR-img QR-z-img':'QR-img'}}" bindtap="_setShowPoster">
+  <image class="img" src="{{distribution.posterImage}}" bindlongpress="_savePosterImage"></image>
+</view>
+<view class="canvas-box">
+  <canvas class="QRCanvas" canvas-id="QRCanvas" />
+</view>

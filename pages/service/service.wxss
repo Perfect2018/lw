@@ -1,0 +1,141 @@
+/* pages/service/service.wxss */
+page{
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+.picker{
+  background-color: #fff;
+  padding: 0 20rpx;
+  box-sizing: border-box;   
+  font-size: 30rpx;
+  color: #505050;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.picker view image{
+  width: 16rpx;
+  height: 10rpx;
+  position: relative;
+  top: -4rpx;
+}
+
+.picker view text{
+  font-weight: bold;
+}
+
+.context{  
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.place-style {
+  font-size: 26rpx;
+  color: #ccc;
+}
+
+.content{
+  width: 100%;
+  background-color: #fff;
+  border-radius: 16rpx;
+  margin-top: 10rpx;
+  padding: 20rpx 24rpx;
+  box-sizing: border-box;
+}
+
+.content>view{
+  width: 100%;
+  height: 70rpx;
+  display: flex;
+  flex-wrap: nowrap;
+  /* align-items: center; */
+  margin: 20rpx 0;
+  box-sizing: border-box;
+}
+
+.content view label{
+  text-align: start;
+  width: 96rpx;
+  height: 50rpx;
+  font-size: 26rpx;
+  color: #505050;
+}
+
+.content view input{
+  width: 600rpx;
+}
+
+.content view textarea{
+  height: 150rpx;
+  width: 600rpx;
+  overflow: scroll;
+}
+
+.content>view.detail{
+  height: 150rpx;
+}
+
+.submit-btn{
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background-color: #4098FD;
+  color: #fff;
+  font-size: 32rpx;
+  margin-top: 90rpx;
+  box-sizing: border-box;
+}
+
+.imgs{
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.img-list{
+  width: 100%;
+  background-color: #fff;
+  border-radius: 16rpx;
+  margin-top: 10rpx;
+  padding: 20rpx 24rpx;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+}
+
+.img-item{
+  width: 198rpx;
+  height: 198rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f1f1;
+  position: relative;
+}
+
+.img-item image{
+  width: 88rpx;
+  height: 70rpx;
+}
+
+.item-img-bottom{
+  text-align: center;
+  color: #505050;
+  font-size: 24rpx;
+  /* padding-top: 10rpx; */
+  /* margin-top: 35rpx; */
+  box-sizing: border-box;
+}
+
+.img-item .img-del {
+  width: 40rpx;
+  height: 40rpx;
+  border: 50%;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  z-index: 9;
+}

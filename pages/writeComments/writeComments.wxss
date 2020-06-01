@@ -1,0 +1,23 @@
+/* pages/writeComments/writeComments.wxss */
+
+.textarea-comments {
+  width: 100%;
+  height: 350rpx;
+  color: #aaa;
+  box-sizing: border-box;
+  text-align: left;
+  padding: 10rpx;
+  background-color: #eee;
+}
+
+.btn-comments {
+  width: 50%;
+  margin: 80rpx auto;
+  font-size: 32rpx;
+  background-color: #7eac25;
+  color: #fff;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

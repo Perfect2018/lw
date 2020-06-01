@@ -1,0 +1,111 @@
+/* pages/personalCenter/personalCenter.wxss */
+
+page {
+  padding-bottom: 100rpx;
+}
+
+/* .personalCenter-head{
+  margin-top: 80rpx;
+  box-sizing: border-box;
+} */
+
+.card-btn {
+  margin: 40rpx auto;
+  background-color: #7eac25;
+  color: #fff;
+}
+
+.input {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 90rpx;
+}
+
+.input input {
+  background: #f1f1f1;
+  height: 80rpx;
+  padding: 10rpx 20rpx;
+  font-size: 34rpx;
+  width: 77%;
+}
+
+.area {
+  width: 100%;
+  height: 90rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.input .button {
+  width: 20%;
+  position: absolute;
+  background: #7eac25;
+  height: 90rpx;
+  line-height: 87rpx;
+  text-align: center;
+  font-size: 34rpx;
+  color: #fff;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.QRCanvas {
+  width: 600px;
+  height: 350px;
+}
+
+.card .img {
+  width: 95%;
+  height: 400rpx;
+  margin: 10rpx auto;
+  border-radius: 5%;
+  display: block;
+}
+
+.navList {
+  width: 95%;
+  margin: 10rpx auto;
+  height: 70rpx;
+  /* display: flex; */
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  /* border: 1rpx solid #7eac25; */
+  color: #fff;
+  background-color: #7eac25;
+}
+
+.navList .nav {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-color: #7eac25;
+}
+
+.navList .nav.active {
+  color: #fff;
+  background-color: #7eac25;
+}
+
+.item-count {
+  padding: 0 10rpx;
+  font-weight: bold;
+}
+
+.comment-btn {
+  width: 100%;
+  font-size: 32rpx;
+  background-color: #7eac25;
+  color: #fff;
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+}

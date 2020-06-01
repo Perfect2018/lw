@@ -1,0 +1,88 @@
+/**app.wxss**/
+
+radio {
+  transform: scale(0.7);
+  vertical-align: -13rpx;
+}
+
+image {
+  width: 100%;
+  height: 0;
+}
+
+.border-none {
+  border: none !important;
+}
+
+.fw-inherit {
+  font-weight: inherit;
+}
+
+.fs-26 {
+  font-size: 26rpx;
+}
+
+.fs-34 {
+  font-weight: bold;
+  font-size: 34rpx;
+}
+
+.fs-0 {
+  font-size: 0;
+  padding: 0 10rpx;
+}
+
+.p-b-200 {
+  padding-bottom: 200rpx;
+}
+
+.ml-60 {
+  margin-left: 60rpx;
+}
+
+.mb-20 {
+  margin-bottom: 20rpx;
+}
+
+.mtb-10 {
+  margin: 10rpx 0;
+}
+
+.color-89C0F6 {
+  color: #89c0f6;
+}
+
+.color-7F7F7F {
+  color: #7f7f7f;
+}
+
+.color-7eac25 {
+  color: #7eac25;
+}
+
+.border-b-none {
+  border-bottom: none !important;
+}
+
+.border-t-none {
+  border-top: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.QRCanvas {
+  position: fixed;
+  top: -9000px;
+  opacity: 0;
+  left: 0px;
+}
+
+.QR-img {
+  position: fixed;
+  top: -10000;
+  width: 100%;
+  height: 100%;
+  z-index: -99;
+}

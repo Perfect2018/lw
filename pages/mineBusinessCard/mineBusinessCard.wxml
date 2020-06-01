@@ -1,0 +1,5 @@
+<!--pages/mineBusinessCard/mineBusinessCard.wxml-->
+<!-- 海报图展示 -->
+<view v-if="{{showPoster}}" class="{{showPoster?'QR-img QR-z-img':'QR-img'}}" bindtap="_setShowPoster">
+  <image class="img" src="{{distribution.posterImage}}" bindlongpress="_savePosterImage"></image>
+</view>

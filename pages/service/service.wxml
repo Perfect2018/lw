@@ -1,0 +1,50 @@
+<!--pages/service/service.wxml-->
+<wxs src="../../wxs/util.wxs" module="util"></wxs>
+<view class="picker">
+	<picker mode="selector" range="{{types}}" value="{{index}}" bindchange="bindPickerChange">
+		<view>
+			请选择类别：<text>{{types[index]}}</text>
+			<image src="../../images/d.png"></image>
+		</view>
+	</picker>
+</view>
+<view class="context">
+	<view class="content">
+		<view>
+			<label>标题：</label>
+			<input placeholder="请输入标题" placeholder-class="place-style" bindinput="getParams" data-key="title" value="{{title}}"></input>
+		</view>
+		<view class="detail">
+			<label>内容：</label>
+			<textarea placeholder="请输入内容" placeholder-class="place-style" bindinput="getParams" data-key="detail" value="{{detail}}" maxlength="2000"></textarea>
+		</view>
+	</view>
+</view>
+<view class="imgs">
+	<view class="img-list">
+		<view wx:if="{{img1}}" class="img-item">
+			<image class="img-del" src="{{deleteImg}}" data-baseUrl="img1" bindtap="_delImg"></image>
+			<image src="{{util._getImageUrl(img1)}}"></image>
+		</view>
+		<view class="img-item" data-baseUrl="img1" bindtap="_getImage" wx:else>
+			<image src="../../images/camera.png"></image>
+		</view>
+		<view wx:if="{{img2}}" class="img-item">
+			<image class="img-del" src="{{deleteImg}}" data-baseUrl="img2" bindtap="_delImg"></image>
+			<image src="{{util._getImageUrl(img2)}}"></image>
+		</view>
+		<view class="img-item" data-baseUrl="img2" bindtap="_getImage" wx:else>
+			<image src="../../images/camera.png"></image>
+		</view>
+		<view wx:if="{{img3}}" class="img-item">
+			<image class="img-del" src="{{deleteImg}}" data-baseUrl="img3" bindtap="_delImg"></image>
+			<image src="{{util._getImageUrl(img3)}}"></image>
+		</view>
+		<view class="img-item" data-baseUrl="img3" bindtap="_getImage" wx:else>
+			<image src="../../images/camera.png"></image>
+		</view>
+	</view>
+	<view class='item-img-bottom'>(请上传政策咨讯/施工规范/施工经验/其他等相关图片)</view>
+</view>
+
+<view bindtap="submit" class="submit-btn">发布</view>

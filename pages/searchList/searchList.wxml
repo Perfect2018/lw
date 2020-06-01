@@ -1,0 +1,10 @@
+<!--pages/searchList/searchList.wxml-->
+<!-- 搜索 -->
+<view class="search">
+  <view class="search-left">
+    <image class="img" lazy-load src="/images/ss.png" />
+    <input class="input" placeholder="{{searchHolder}}" value="{{kw}}" bindinput="_setParams" data-key="kw"></input>
+  </view>
+  <view class="btn-search" bindtap="_search">搜索</view>
+</view>
+<task-list task-list="{{taskList}}" task-type="mine"></task-list>

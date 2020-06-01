@@ -1,0 +1,32 @@
+<!--pages/components/taskList/index.wxml-->
+<wxs src="../../wxs/util.wxs" module="util"></wxs>
+<view class='task-list'>
+  <block wx:for="{{taskList}}" wx:key="index">
+    <view class="{{isActive === true && cIndex === index ? 'active':'item'}}" bindtap="_toView" data-navigate="taskDtails" data-id="{{item.id}}" bindlongpress="delete" data-index="{{index}}" bindtouchend="_up" touchstart="_down" data-type="{{item.typeClass}}">
+      <view class="taskList-img">
+        <image src="../../images/info.png"></image>
+      </view>
+      <block wx:if="{{taskType==='detail'}}">
+        <text wx:if="{{item.customer.isAuth==='01'}}" class="verified">已认证</text>
+        <text wx:else class="not-verified">未认证</text>
+      </block>
+      <!-- <view class="right"> -->
+        <text class="{{item.messageType==='01'?'color-000':'color-7F7F7F'}}" class="fsize">【{{item.messageType==='01'?'供':item.messageType==='02'?'需':item.messageType==='03'?'政策资讯':item.messageType==='04'?'施工规范':item.messageType==='05'?'施工经验':'其他'}}】</text>
+        <block>
+          <view wx:if="{{taskType!=='service' && taskType!=='mine'}}" class="job-name">[{{item.category.name}}]</view>
+        </block>
+        <text class="{{item.messageType==='01'?'color-000':'color-7F7F7F'}}" class="text-right">{{item.titleName}}</text>
+      <!-- </view> -->
+    </view>
+    <block wx:if="{{taskType == 'home' && item.img1}}">
+      <view class="humbnail">
+        <image src="{{util._getImageUrl(item.img1)}}" lazy-load="true" mode="aspectFit"></image>
+        <image src="{{util._getImageUrl(item.img2)}}" lazy-load="true" mode="aspectFit"></image>
+        <image src="{{util._getImageUrl(item.img3)}}" lazy-load="true" mode="aspectFit"></image>
+      </view>
+    </block>
+    <!-- <block wx:if="{{taskType=='mine'}}">
+      <button size="mini" class="del-btn">删除</button>
+    </block> -->
+  </block>
+</view>

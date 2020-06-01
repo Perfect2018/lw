@@ -1,0 +1,171 @@
+<!--pages/certification/Certification.wxml-->
+<wxs src="../../wxs/util.wxs" module="util"></wxs>
+<view class="certification">
+	<!-- <view class="prompt">认证信息可获得更多关注</view> -->
+	<view class="top-edit" wx:if="{{!isAuth}}">
+		<view class="btn-edit" bindtap="_certification" bindtap="_edit">编辑</view>
+	</view>
+	<!-- 分割线 -->
+	<view class="divider"></view>
+
+	<view class='certification-type'>
+		<!-- <view class="item-title">认证方式:<text>{{custRole?custRole:""}}</text></view>
+		<view class="item-picker">
+			<picker class="item-picker item-input border-none" mode="selector" bindchange="_custRoleChange" value="{{custRoleIndex}}" range="{{authMethodArray}}">
+				<view class="picker">
+					<image src="../../images/d.png"></image>
+				</view>
+			</picker>
+		</view> -->
+		<text class="item-title">认证方式：</text>
+		<radio-group bindchange="selectRadio" data-key="messageType">
+			<label class="radio-label">
+				<radio value="01" color="#1e90ff" checked="{{messageType=='01'}}">
+					<text class="fs-34">企业认证</text>
+				</radio>
+			</label>
+			<label class="radio-label">
+				<radio value="02" color="#1e90ff" checked="{{messageType=='02'}}">
+					<text class="fs-34">个人认证</text>
+				</radio>
+			</label>
+		</radio-group>
+	</view>
+	<view class="divider"></view>
+	<!-- 个人认证 -->
+	<block wx:if='{{isPersonal}}'>
+		<!-- 姓名 -->
+		<view>
+			<view class="item-title item-tit">姓名:</view>
+			<input class="item-input border-b-none" placeholder="请输入您的真实姓名" bindinput="_setParams" data-key="pusername" value="{{pusername}}" placeholder-class="place-style"></input>
+		</view>
+		<!-- 职务 -->
+		<view>
+			<view class="item-title item-tit">职务:</view>
+			<input class="item-input border-b-none" placeholder="请输入您的职务" bindinput="_setParams" data-key="pcustRole" value="{{pcustRole}}" placeholder-class="place-style"></input>
+		</view>
+		<!-- 身份证号 -->
+		<view>
+			<view class="item-title item-tit">身份证号:</view>
+			<input class="item-input" placeholder="请输入您的身份证号" type="number" bindinput="_setParams" data-key="cardNum" value="{{cardNum}}" placeholder-class="place-style" />
+		</view>
+		<!-- 手机号 -->
+		<view>
+			<view class="item-title item-tit">手机号:</view>
+			<input class="item-input" placeholder="请输入手机号" type="number" bindinput="_setParams" data-key="pPhone" value="{{pPhone}}" placeholder-class="place-style" />
+		</view>
+		<!-- 验证码 -->
+		<view wx:if="{{isAuth}}">
+			<view class="item-title item-tit">验证码:</view>
+			<input class="item-input border-t-none" placeholder="请输入验证码" bindinput="_setParams" value="{{code}}" data-key="code" placeholder-class="place-style" />
+			<view bindtap="_getCode" class="code-btn">{{stateTime?stateTime+"s":"获取验证码"}}</view>
+		</view>
+		<view wx:if="{{isShow}}">
+			<view class="item-title item-tit">验证码:</view>
+			<input class="item-input border-t-none" placeholder="请输入验证码" bindinput="_setParams" value="{{code}}" data-key="code" placeholder-class="place-style"/>
+			<view bindtap="_getCode" class="code-btn">{{stateTime?stateTime+"s":"获取验证码"}}</view>
+		</view>
+		<!-- 分割线 -->
+		<view class="divider"></view>
+		<!-- 身份证正反面照 -->
+		<view class="item-img">
+			<view>身份证正反面照(必填)</view>
+			<view class='imgs mb-20'>
+				<view class="img-item">
+					<block wx:if="{{img3}}">
+						<image class="img-del" src="{{deleteImg}}" data-baseUrl="img3" bindtap="_delImg"></image>
+						<image class="img-item-a-o" src="{{util._getImageUrl(img3)}}"></image>
+					</block>
+					<view wx:else class="img-item-a-x" data-baseUrl="img3" bindtap="_getImage">
+						<view>
+							<image src="../../images/camera.png"></image>
+						</view>
+						<view class="explain">上传人像面</view>
+					</view>
+				</view>
+				<view class="img-item">
+					<block wx:if="{{img4}}">
+						<image class="img-del" src="{{deleteImg}}" data-baseUrl="img4" bindtap="_delImg"></image>
+						<image class="img-item-a-o" src="{{util._getImageUrl(img4)}}"></image>
+					</block>
+					<view wx:else class="img-item-a-x" data-baseUrl="img4" bindtap="_getImage">
+						<image src="../../images/camera.png"></image>
+						<view class="explain">上传国徽面</view>
+					</view>
+				</view>
+
+			</view>
+		</view>
+	</block>
+	<!-- 企业认证 -->
+	<block wx:else>
+		<!-- 公司名称 -->
+		<view>
+			<view class="item-title item-tit">公司名称:</view>
+			<input class="item-input border-b-none companyname" placeholder="请输入您的公司名称" bindinput="_setParams" data-key="companyname" value="{{companyname}}" placeholder-class="place-style"></input>
+		</view>
+		<!-- 姓名 -->
+		<view>
+			<view class="item-title item-tit">姓名:</view>
+			<input class="item-input border-b-none" placeholder="请输入您的真实姓名" bindinput="_setParams" data-key="username" value="{{username}}" placeholder-class="place-style"></input>
+		</view>
+		<!-- 职务 -->
+		<view>
+			<view class="item-title item-tit">职务:</view>
+			<input class="item-input border-b-none" placeholder="请输入您的职务" bindinput="_setParams" data-key="custRole" value="{{custRole}}" placeholder-class="place-style"></input>
+		</view>
+		<!-- 手机号 -->
+		<view>
+			<view class="item-title item-tit">手机号:</view>
+			<input class="item-input" placeholder="请输入手机号" type="number" bindinput="_setParams" data-key="phone" value="{{phone}}" placeholder-class="place-style" />
+		</view>
+		<!-- 验证码 -->
+		<view wx:if="{{isAuth}}">
+			<view class="item-title item-tit">验证码:</view>
+			<input class="item-input border-t-none" placeholder="请输入验证码" bindinput="_setParams" value="{{code}}" data-key="code" placeholder-class="place-style" />
+			<view bindtap="_getCode" class="code-btn">{{stateTime?stateTime+"s":"获取验证码"}}</view>
+		</view>
+		<view wx:if="{{isShow}}">
+			<view class="item-title item-tit">验证码:</view>
+			<input class="item-input border-t-none" placeholder="请输入验证码" bindinput="_setParams" value="{{code}}" data-key="code" placeholder-class="place-style" />
+			<view bindtap="_getCode" class="code-btn">{{stateTime?stateTime+"s":"获取验证码"}}</view>
+		</view>
+		<!-- 分割线 -->
+		<view class="divider"></view>
+		<!-- 公司营业执照 -->
+		<view class="item-img">
+			<view>公司营业执照及名片(必填)</view>
+			<view class='imgs mb-20'>
+				<view class="img-item">
+					<block wx:if="{{img1}}">
+						<image class="img-del" src="{{deleteImg}}" data-baseUrl="img1" bindtap="_delImg"></image>
+						<image class="img-item-a-o" src="{{util._getImageUrl(img1)}}"></image>
+					</block>
+					<view wx:else class="img-item-a-x" data-baseUrl="img1" bindtap="_getImage">
+						<view>
+							<image src="../../images/camera.png"></image>
+						</view>
+						<view class="explain">上传营业执照</view>
+					</view>
+				</view>
+				<view class="img-item">
+					<block wx:if="{{img2}}">
+						<image class="img-del" src="{{deleteImg}}" data-baseUrl="img2" bindtap="_delImg"></image>
+						<image class="img-item-a-o" src="{{util._getImageUrl(img2)}}"></image>
+					</block>
+					<view wx:else class="img-item-a-x" data-baseUrl="img2" bindtap="_getImage">
+						<image src="../../images/camera.png"></image>
+						<view class="explain">上传名片</view>
+					</view>
+				</view>
+
+			</view>
+		</view>
+	</block>
+	<view class="btn-release" bindtap="_certification" wx:if="{{isAuth}}" data-navigate="personalCenter">立即认证</view>
+
+	<view class="btn-release" wx:if="{{isEdit && !isAuth}}">认证信息</view>
+	<view class="btn-release" bindtap="_certification" wx:if="{{!isEdit}}" data-navigate="personalCenter">立即认证</view>
+	<!-- <view wx:if="{{isAuth}}" class="btn-release" bindtap="cancel">取消1</view> -->
+	<view wx:if="{{!isEdit}}" class="btn-release" bindtap="cancel">取消</view>
+</view>

@@ -1,0 +1,279 @@
+<!--pages/release/release.wxml-->
+<wxs src="../../wxs/util.wxs" module="util"></wxs>
+<!-- <view class="ad">
+  <image lazy-load class="img" src="{{adImage}}"></image>
+</view> -->
+<view class="release-top" wx:if="{{audit == 'yes'}}">
+	<view class="top-item-left">
+		<picker class="item-picker border-none" mode="multiSelector" bindchange="_classificationChange" bindcolumnchange="_classificationColumnChange" range-key="name" value="{{classificationIndex}}" range="{{classificationArrayMap}}">
+
+			<view class="picker">{{classification?classification.name:'信息分类'}}
+				<image src="../../images/d.png"></image>
+			</view>
+
+		</picker>
+	</view>
+	<view class="top-item-right" bindtap="itemRight">
+		<view class="picker">{{radioText}}
+			<image src="../../images/d.png"></image>
+		</view>
+
+		<view class="item-right-radio" wx:if="{{isShow}}">
+			<radio-group class="radio-group border-none" bindchange='_setType' data-key="messageType">
+				<label class="radio-label">
+					<radio value="01" color="#1e90ff" checked="{{messageType=='01'}}">
+						<text class="fs-34">供应</text>
+					</radio>
+				</label>
+				<label class="radio-label">
+					<radio value="02" color="#1e90ff" checked="{{messageType=='02'}}">
+						<text class="fs-34">需求</text>
+					</radio>
+				</label>
+			</radio-group>
+		</view>
+	</view>
+</view>
+<!-- 表单模块 -->
+<!-- <view class="item-quick" wx:if="{{quickRelease}}">
+	{{quickClassificationName}}
+</view> -->
+<view class="item-list" wx:if="{{audit == 'yes'}}">
+	<!-- <view class='item' wx:if="{{!quickRelease}}">
+		<view class="item-title item-tit">信息分类</view>
+    <picker class="item-input border-none" mode="multiSelector" bindchange="_classificationChange" bindcolumnchange="_classificationColumnChange" range-key="name" value="{{classificationIndex}}" range="{{classificationArrayMap}}">
+      <view class="picker">{{classification?classification.name:'点击选择分类'}}</view>
+    </picker>
+	</view>
+	<view class='item' wx:else>
+		<view class="item-title item-tit">信息分类</view>
+		<picker class="item-input border-none" mode="multiSelector" bindchange="_classificationChange" bindcolumnchange="_classificationColumnChange" range-key="name" value="{{quickClassificationIndex}}" range="{{quickClassificationArrayMap}}">
+			<view class="picker">{{classification?classification.name:'点击选择分类'}}</view>
+		</picker>
+	</view> -->
+	<view class="detail-info">
+		<!-- 标题 -->
+		<view>
+			<view class="item-title item-tit">标题:</view>
+			<input class="item-input title-name" bindinput='_setParams' data-key="titleName" value="{{titleName}}" placeholder='请输入标题' placeholder-class="place-style" />
+		</view>
+		<!-- 描述 -->
+		<view class="discrible">
+			<view class="item-title item-tit">描述:</view>
+			<textarea class="item-input-describe" value="{{describle}}" bindinput='_setParams' data-key="describle" placeholder="请输入工作描述信息（50字~300字）" placeholder-class="place-style" />
+		</view>
+		<!-- 位置 -->
+		<view>
+			<view class="item-title item-tit">位置(点击可修改):</view>
+			<input class="item-input border-b-none" value="{{address}}" placeholder-class="place-style" bindinput="_setParams" data-key="address"></input>
+		</view>
+		<!-- 姓名 -->
+		<view>
+			<view class="item-title item-tit">姓名:</view>
+			<input class="item-input border-b-none" placeholder="请输入身份证姓名" bindinput="_setParams" data-key="userName" value="{{userName}}" placeholder-class="place-style"></input>
+		</view>
+		<!-- 手机号 -->
+		<view>
+			<view class="item-title item-tit">手机号:</view>
+			<input class="item-input" placeholder="请输入手机号" type="number" bindinput="_setParams" data-key="phone" value="{{phone}}" placeholder-class="place-style" />
+		</view>
+		<!-- 验证码 -->
+		<view wx:if="{{!isCode}}">
+			<view class="item-title item-tit">验证码:</view>
+			<input class="item-input border-t-none code-input" placeholder="请输入验证码" bindinput="_setParams" value="{{code}}" data-key="code" placeholder-class="place-style" />
+			<view bindtap="_getCode" class="code-btn">{{stateTime?stateTime+"s":"获取验证码"}}</view>
+		</view>
+	</view>
+	<view class="item-img">
+		<view class='imgs'>
+			<view class="img-item">
+				<block wx:if="{{img1}}">
+					<image class="img-del" src="{{deleteImg}}" data-baseUrl="img1" bindtap="_delImg"></image>
+					<image class="img-item-a-o" src="{{util._getImageUrl(img1)}}"></image>
+				</block>
+				<view wx:else class="img-item-a-x" data-baseUrl="img1" bindtap="_getImage">
+					<image src="../../images/camera.png"></image>
+				</view>
+			</view>
+			<view class="img-item">
+				<block wx:if="{{img2}}">
+					<image class="img-del" src="{{deleteImg}}" data-baseUrl="img2" bindtap="_delImg"></image>
+					<image class="img-item-a-o" src="{{util._getImageUrl(img2)}}"></image>
+				</block>
+				<view wx:else class="img-item-a-x" data-baseUrl="img2" bindtap="_getImage">
+					<image src="../../images/camera.png"></image>
+				</view>
+			</view>
+			<view class="img-item">
+				<block wx:if="{{img3}}">
+					<image class="img-del" src="{{deleteImg}}" data-baseUrl="img3" bindtap="_delImg"></image>
+					<image class="img-item-a-o" src="{{util._getImageUrl(img3)}}"></image>
+				</block>
+				<view wx:else class="img-item-a-x" data-baseUrl="img3" bindtap="_getImage">
+					<image src="../../images/camera.png"></image>
+				</view>
+			</view>
+		
+
+		</view>
+	<view class='item-img-bottom'>
+				(请上传工作/工地/设备等相关图片)
+			</view>
+		<!-- <view class='item'>
+		<view class="item-title item-tit">标题</view>
+		<input class="item-input" bindinput='_setParams' data-key="titleName" value="{{titleName}}" placeholder='请输入标题' />
+	</view> -->
+		<!-- <view class='item'>
+		<view class="item-title item-tit">信息类别</view>
+		<radio-group class="item-input border-none" bindchange='_setParams' data-key="messageType">
+			<label>
+				<radio value="01" color="#1e90ff" checked="{{messageType=='01'}}">
+					<text class="fs-34">供应</text>
+				</radio>
+			</label>
+			<label class="ml-60">
+				<radio value="02" color="#1e90ff" checked="{{messageType=='02'}}">
+					<text class="fs-34">需求</text>
+				</radio>
+			</label>
+		</radio-group>
+	</view> -->
+		<!-- <view class='item'>
+		<view class="item-title item-tit">描述</view>
+		<textarea class="item-input-describe" value="{{describle}}" bindinput='_setParams' data-key="describle" placeholder="请输入工作描述信息（50字~300字）" />
+		</view> -->
+		<!-- 判断是否实名 -->
+		<!-- <block wx:if="{{!isAuth}}">
+
+    <view class='item'>
+      <view class="item-title">实名认证</view>
+      <radio-group class="item-input border-none" bindchange='_setParams' data-key="verified">
+        <label>
+          <radio value="Y" color="#1e90ff" checked="{{verified==='Y'}}">
+            <text class="fs-34">是</text>
+          </radio>
+        </label>
+        <label class="ml-60">
+          <radio value="N" color="#1e90ff" checked="{{verified==='N'}}">
+            <text class="fs-34">否</text>
+          </radio>
+        </label>
+      </radio-group>
+    </view>
+    <view class="prompt">认证信息可获得更多关注</view>
+    <block wx:if="{{verified==='Y'}}">
+      <view class='item lh-70'>
+        <view class="item-title">职位</view>
+        <picker class="item-picker item-input border-none" mode="selector" bindchange="_custRoleChange" value="{{custRoleIndex}}" range="{{custRoleArray}}">
+          <view class="picker">{{custRole?custRole:'点击选择职位'}}</view>
+        </picker>
+        <text class="color-7eac25" bindtap="_setCustRoleFlag">{{custRoleFlag?'':'添加职位'}}</text>
+      </view>
+      <view class='item' wx:if="{{custRoleFlag}}">
+        <view class="item-title">添加职位</view>
+        <input class="item-input" bindinput='_setParams' data-key="custRole" value="{{custRole}}" placeholder='请输入新职位' />
+      </view>
+
+      <view class='item border-none'>
+        <view class="item-title item-tit">证件信息</view>
+        <view class="item-input border-none pl-113">请上传证件照</view>
+      </view>
+      <view class='imgs'>
+        <view class="img-item-a">
+          <block wx:if="{{cardFront}}">
+            <image class="img-del" src="{{deleteImg}}" data-baseUrl="cardFront" bindtap="_delImg"></image>
+            <image class="img-item-a-o" src="{{util._getImageUrl(cardFront)}}"></image>
+          </block>
+          <block wx:else>
+            <view class="img-item-a-x" data-baseUrl="cardFront" bindtap="_getImage">+</view>
+            <view class="img-item-a-t">身份证正面照</view>
+          </block>
+        </view>
+        <view class="img-item-a">
+          <block wx:if="{{cardReverse}}">
+            <image class="img-del" src="{{deleteImg}}" data-baseUrl="cardReverse" bindtap="_delImg"></image>
+            <image class="img-item-a-o" src="{{util._getImageUrl(cardReverse)}}"></image>
+          </block>
+          <block wx:else>
+            <view class="img-item-a-x" data-baseUrl="cardReverse" bindtap="_getImage">+</view>
+            <view class="img-item-a-t">身份证反面照</view>
+          </block>
+        </view>
+        <view class="img-item-a">
+          <block wx:if="{{custRoleImg}}">
+            <image class="img-del" src="{{deleteImg}}" data-baseUrl="custRoleImg" bindtap="_delImg"></image>
+            <image class="img-item-a-o" src="{{util._getImageUrl(custRoleImg)}}"></image>
+          </block>
+          <block wx:else>
+            <view class="img-item-a-x" data-baseUrl="custRoleImg" bindtap="_getImage">+</view>
+            <view class="img-item-a-t">相关资质</view>
+          </block>
+        </view>
+      </view>
+    </block>
+  </block> -->
+
+		<!-- <view class='item border-none'>
+    <view class="item-title item-tit">图片</view>
+    <view class="item-input border-none pl-0">请上传工作/工地/设备等相关图片</view>
+  </view>
+  <view class='imgs mb-20'>
+    <view class="img-item">
+      <block wx:if="{{img1}}">
+        <image class="img-del" src="{{deleteImg}}" data-baseUrl="img1" bindtap="_delImg"></image>
+        <image class="img-item-a-o" src="{{util._getImageUrl(img1)}}"></image>
+      </block>
+      <view wx:else class="img-item-a-x" data-baseUrl="img1" bindtap="_getImage">+</view>
+    </view>
+    <view class="img-item">
+      <block wx:if="{{img2}}">
+        <image class="img-del" src="{{deleteImg}}" data-baseUrl="img2" bindtap="_delImg"></image>
+        <image class="img-item-a-o" src="{{util._getImageUrl(img2)}}"></image>
+      </block>
+      <view wx:else class="img-item-a-x" data-baseUrl="img2" bindtap="_getImage">+</view>
+    </view>
+
+    <view class="img-item">
+      <block wx:if="{{img3}}">
+        <image class="img-del" src="{{deleteImg}}" data-baseUrl="img3" bindtap="_delImg"></image>
+        <image class="img-item-a-o" src="{{util._getImageUrl(img3)}}"></image>
+      </block>
+      <view wx:else class="img-item-a-x" data-baseUrl="img3" bindtap="_getImage">+</view>
+    </view>
+  </view>
+
+  <view>
+    <view class="item code-item border-b-none">
+      <view class="item-title item-tit">位置</view>
+      <input class="item-input border-b-none" value="{{address}}"></input>
+    </view>
+    <view class="item code-item ">
+      <view class="item-title item-tit">姓名</view>
+      <input class="item-input border-b-none" placeholder="请输入身份证姓名" bindinput="_setParams" data-key="userName" value="{{userName}}"></input>
+    </view>
+    <view class="item code-item ">
+      <view class="item-title item-tit">手机号</view>
+      <input class="item-input" placeholder="请输入手机号" type="number" bindinput="_setParams" data-key="phone" value="{{phone}}" />
+    </view>
+
+    <view class="item code-item" wx:if="{{!isCode}}">
+      <view class="item-title item-tit">验证码</view>
+      <input class="item-input border-t-none" placeholder="请输入验证码" bindinput="_setParams" value="{{code}}" data-key="code" />
+      <view bindtap="_getCode" class="code-btn">{{stateTime?stateTime+"s":"获取验证码"}}</view>
+    </view>
+  </view> -->
+	</view>
+
+</view>
+<!-- <view class="btn-bottom">
+    <button class="btn-release" bindtap="_postNow">立即发布</button>
+</view> -->
+<view wx:else class="audit">
+	收藏信息
+	<view class="audit-hint" wx:if="{{isHint}}" bindtap="hint">系统升级中，部分功能暂时无法使用，请稍后重试(点击关闭提示)</view>
+	<task-list task-list="{{historyReleaseList}}" task-type="mine"></task-list>
+
+</view>
+	<view class="btn-release" bindtap="_postNow" wx:if="{{audit == 'yes'}}">
+		立即发布
+	</view>

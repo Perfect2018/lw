@@ -1,0 +1,13 @@
+<!--components/popup/index.wxml-->
+<view class="wx-popup" hidden="{{flag}}">
+	<view class='popup-container'>
+		<view class="wx-popup-title">{{title}}</view>
+		<view class="wx-popup-con" wx:if="{{content}}">{{content}}</view>
+		<slot wx:else name="content"></slot>
+		<view class="wx-popup-btn">
+			<button class="cancel btn" bindtap='_cancel'>{{cancelText}}</button>
+			<button wx:if="{{type===''}}" class="confirm btn border-l-f5f5f5" bindtap='_confirm'>{{confirmText}}</button>
+			<button wx:else class="userInfo btn border-l-f5f5f5" open-type="{{type}}" bindgetuserinfo="_getUserInfo">{{confirmText}}</button>
+		</view>
+	</view>
+</view>

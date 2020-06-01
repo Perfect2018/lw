@@ -1,0 +1,22 @@
+/* imageCropper.wxss */
+
+page {
+  background: rgb(14, 13, 13);
+}
+
+.bottom {
+  position: absolute;
+  width: 100%;
+  bottom: 50rpx;
+  display: flex;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 210rpx;
+}
+
+.btn {
+  background-color: #1e90ff;
+  color: #fff;
+}

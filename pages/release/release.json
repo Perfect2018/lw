@@ -1,0 +1,6 @@
+{ 
+  "navigationBarTitleText": "信息",
+  "usingComponents": {
+    "task-list": "../components/taskList/index"
+  }
+}

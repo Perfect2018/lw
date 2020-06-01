@@ -1,0 +1,7 @@
+<!--pages/writeComments/writeComments.wxml-->
+<view>
+  <textarea class="textarea-comments" value="{{content}}" bindinput='_setParams' bindfocus="_contentFocus" data-key="content" placeholder="请输入留言信息" />
+  <button class="btn-comments" bindtap="_postComments">确认留言</button>
+</view>
+<popup id='popup' title='提示' content='登录后即可进行留言' cancel-text='取消' type="getUserInfo" confirm-text='去登陆' bind:cancel="_cancel" bind:userinfo="_getcustInfo">
+</popup>

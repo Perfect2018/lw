@@ -1,0 +1,48 @@
+<!--components/commentList/index.wxml-->
+<wxs src="../../wxs/util.wxs" module="util"></wxs>
+<view class="comment-list">
+  <!-- <view class="comment" wx:for="{{commentsList}}" wx:for-index="indexComm" wx:key="{{indexComm}}"> -->
+  <view class="comment" wx:for="{{commentsList}}" wx:key="index">
+    <view class="head">
+      <view class="left">
+        <image class="img" src="{{item.userMessgae.headImg}}"></image>
+      </view>
+      <view class="right">
+        <view class="top">{{item.userMessgae.nickName}}</view>
+        <text class="time">{{util._getYMD(item.userMessgae.createDate)}}</text>
+        <view class="content">
+          <text class="text">{{item.userMessgae.content}}</text>
+          <!-- {{util._getYMD(item.userMessgae.createDate)}} -->
+          
+        </view>
+      </view>
+       <!-- <view class="time">
+        {{util._getYMD(item.userMessgae.createDate)}}
+      </view> -->
+    </view>
+    <view class="features">
+      <view class="btns">
+        <view wx:if="{{cusrId!=item.custId}}" class="reply" bindtap="_reply" data-id="{{item.userMessgae.id}}" data-custid="{{item.userMessgae.userCustId}}" data-index="{{index}}">回复</view>
+      </view>
+     
+    </view>
+    <view class="item-comment-list" wx:if="{{true}}">
+      <view wx:for="{{item.userMessageContents}}" wx:key="index">
+        <view class="item-comment">
+          <view class="top">
+            <text class="nickname">{{item.nickName+" "}}回复：</text>
+            <text class="content">{{item.content}}</text>
+          </view>
+          <view class="features">
+            <view class="btns">
+              <view wx:if="{{cusrId!=item.custId}}" data-index="{{indexComm}}" class="reply" bindtap="_reply" data-id="{{item.id}}" data-custid="{{item.custId}}">回复</view>
+            </view>
+            <view class="time">
+              {{util._getYMD(item.createDate)}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

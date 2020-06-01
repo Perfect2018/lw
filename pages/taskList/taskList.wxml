@@ -1,0 +1,12 @@
+<!--pages/taskList/taskList.wxml-->
+<view class="p-b-200">
+  <!-- 广告 -->
+  <view class="classification">
+    <image lazy-load class="classification-img" src="{{adImage}}" mode="scaleToFill" />
+  </view>
+  <task-list task-list="{{taskList}}" task-type="detail"></task-list>
+  <!-- 我要发布 -->
+  <view class="footer">
+    <view class="release" data-navigate="release" bindtap="_toView">我要发布</view>
+  </view>
+</view>

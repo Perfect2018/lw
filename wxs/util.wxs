@@ -1,0 +1,67 @@
+// 图片链接
+function _getImageUrl(id) {
+  // return id ? 'https://lwapi.shuguodj.com/outByteImgById?id=' + id : '';
+  return id ? 'http://192.168.1.5:8080/outByteImgById?id=' + id : '';   
+}
+
+// 格式km(单位)
+function _getKm(distances) {
+  return distances ? (distances / 1000).toFixed(2) : '0.00';
+}
+// 保留小数点位数
+function _toFixed(num, digits) {
+  num = Number(num);
+  return num ? num.toFixed(digits) : '0.00';
+}
+// 获取年月日
+function _getYMD(timestamp) {
+  if (timestamp) {
+    var date = timestamp ? getDate(timestamp) : '';
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var mm = date.getMinutes();
+    var s = date.getSeconds();
+    timestamp = [y, m, d].map(_formatNumber).join("-") + ' ' + [h, mm, s].map(_formatNumber).join(':');
+  } else {
+    timestamp = "";  
+  }
+  return timestamp;
+}
+// 保留两位数
+function _formatNumber(n) {
+  n = n.toString()  
+  return n[1] ? n : '0' + n
+}
+// 保留两位小数点
+function _getFixedMoney(money) {
+  money = Number(money);
+  return Number(money) ? money.toFixed(2) : '0.00';
+}
+// null判断
+function _getIsNull(temp) {
+  return temp && temp != 'null' ? true : false;
+}
+
+//去除null
+function _isNotNull(str) {
+  return str + ''.replace('null', '').replace('NaN', '');
+}
+// 是否显示起送价
+function _showOnDestributionPrice(totalAmt, onDestributionPrice) {
+  return Number(totalAmt) < Number(onDestributionPrice);
+}
+
+
+
+module.exports = {
+  _getImageUrl: _getImageUrl,
+  _getFixedMoney: _getFixedMoney,
+  _getKm: _getKm,
+  _toFixed: _toFixed,
+  _getYMD: _getYMD,
+  _getIsNull: _getIsNull,
+  _isNotNull: _isNotNull,
+  _showOnDestributionPrice: _showOnDestributionPrice
+}

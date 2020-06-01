@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/release/release",
+    "pages/mine/mine",
+    "pages/taskList/taskList",
+    "pages/taskDtails/taskDtails",
+    "pages/searchList/searchList",
+    "pages/mineBusinessCard/mineBusinessCard",
+    "pages/writeComments/writeComments",
+    "pages/personalCenter/personalCenter",
+    "pages/certification/Certification",
+    "pages/service/service"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4098FD",
+    "navigationBarTitleText": "盘活科技",
+    "navigationBarTextStyle": "black",
+    "onReachBottomDistance": 500
+  },
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#89C0F6",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "/images/sy.png",
+        "selectedIconPath": "/images/s.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/release/release",
+        "iconPath": "/images/ff.png",
+        "selectedIconPath": "/images/f.png",
+        "text": "信息"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "/images/ww.png",
+        "selectedIconPath": "/images/w.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置将用于查找附近劳务"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}

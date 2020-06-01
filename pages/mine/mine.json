@@ -1,0 +1,7 @@
+{ 
+  "navigationBarTitleText": "我的",
+  "usingComponents": {
+    "comment-list": "../components/commentList/index",
+    "task-list": "../components/taskList/index"
+  }
+}

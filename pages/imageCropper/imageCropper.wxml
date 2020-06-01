@@ -1,0 +1,8 @@
+<!--imageCropper.wxml-->
+<image-cropper id="image-cropper" bindimageload="loadimage" bindtapcut="clickcut" limit_move="{{limit_move}}" disable_rotate="{{disable_rotate}}" width="{{width}}" height="{{height}}" imgSrc="{{src}}" disable_ratio="{{disable_ratio}}" disable_width="{{disable_width}}"
+  disable_height="{{disable_height}}" img_width="{{img_width}}" img_height="{{img_height}}" export_scale="{{export_scale}}">
+</image-cropper>
+<view class='bottom'>
+  <button class="fw-inherit" catchtap='noSubmit'>取消</button>
+  <button class="btn fw-inherit" catchtap='submit'>立即上传</button>
+</view>

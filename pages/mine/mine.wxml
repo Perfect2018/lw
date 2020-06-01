@@ -1,0 +1,161 @@
+<!--pages/mine/mine.wxml-->
+<wxs src="../../wxs/util.wxs" module="util"></wxs>
+<view class="head-bg">
+	<!-- <view class="mine-head"> -->
+	<!-- 用户基础信息显示 -->
+	<block wx:if="{{isLogin}}">
+		<!-- <view class="user-info"> -->
+		<view class="userInfo-image">
+			<image class="user-image" src="{{userInfo.avatarUrl}}" mode="scaleToFill"></image>
+		</view>
+
+		<view class="user-nickName">{{userInfo.nickName}}</view>
+		<!-- <view class="user-pro">
+			<view class="user-favorite">
+				<image class="img" src="/images/lw-wdsc-o.png"></image>
+				{{favoriteCount}}
+			</view>
+			<view class="user-position" wx:if="{{custInfo.custRole}}">职位：{{custInfo.custRole}}</view>
+		</view> -->
+
+<!-- </view> -->
+		<view class="audit" bindtap="audit" wx:if="{{isLogin && userId == '259'}}">
+			<view class="audit-btn" wx:if="{{audit=='yes'}}">已开启</view>
+			<view class="audit-btn" wx:if="{{audit=='no'}}">已关闭</view>
+		</view>
+		<!-- <view wx:else class="audit" bindtap="audit">
+			<view class="audit-btn">已关闭</view>
+		</view> -->
+<!--    <image bindtap="_toView" data-navigate="personalCenter" class="personal-img" src="{{personalCenterImg}}"></image> -->
+</block>
+<block wx:else>
+	<view class="user-btns">
+		<button class="user-btn" open-type="getUserInfo" bindgetuserinfo="_getUserInfo">立即登录</button>
+	</view>
+</block>
+</view>
+
+
+<!-- </view> -->
+<!-- 分类导航 -->
+<view class="nav-list">
+	<block wx:for="{{navList}}" wx:key="index">
+		<view class="nav-item {{navIndex === index?'active':''}}" data-index="{{index}}" bindtap="_navIndex">
+			<image class="img" src="{{item.iconImg}}" />
+			<view class="title">{{item.title}}</view>
+		</view>
+	</block>
+</view>
+<view class="divider"></view>
+<!-- 历史发布 -->
+<view wx:if="{{navIndex===0}}">
+	<view class="item-count">历史发布<text class="tip">(长按标题删除消息)</text>：{{historyReleaseTotal}}</view>
+	<task-list task-list="{{historyReleaseList}}" task-type="mine"></task-list>
+</view>
+<!-- 我的收藏 -->
+<view wx:if="{{navIndex===1}}">
+	<view class="item-count">收藏列表：{{favoriteTasksTotal}}</view>
+	<task-list task-list="{{favoriteTasksList}}" task-type="mine" user-id="{{userId}}"></task-list>
+</view>
+<!-- 被浏览 -->
+<view wx:if="{{navIndex===2}}">
+	<view class="item-count">被浏览：{{browseTasksTotal}}</view>
+	<view class="browse-list">
+		<block wx:for="{{browseTasksList}}" wx:key="index">
+			<view class="browse-item">
+				<view class="left">
+					<image class="img" src="{{item.headImg}}" mode="scaleToFill" />
+					<view class="name">{{item.nickName}}</view>
+				</view>
+				<view class="time">{{util._getYMD(item.createDate)}}</view>
+			</view>
+		</block>
+	</view>
+</view>
+<!-- 认证信息 -->
+<!-- <view wx:if="{{navIndex===3}}">
+	<view class="prompt">认证信息可获得更多关注</view>
+	<view class='item lh-70'>
+		<view class="item-title">职位:{{custInfo.custRole}}</view>
+		<view wx:if="{{editInfo}}">
+			<picker class="item-picker item-input border-none" mode="selector" bindchange="_custRoleChange" value="{{custRoleIndex}}" range="{{custRoleArray}}">
+				<view class="picker">{{custInfo.custRole?custInfo.custRole:'点击选择职位'}}</view>
+			</picker>
+			<text class="color-7eac25" bindtap="_setCustRoleFlag">{{custRoleFlag?'':'添加职位'}}</text>
+		</view>
+		<view wx:else class="picker">
+			{{custInfo.custRole}}
+		</view>
+	</view>
+	<view class='item' wx:if="{{custRoleFlag}}">
+		<view class="item-title">添加职位</view>
+		<input class="item-input" bindinput='_setParams' data-key="custRole" value="{{custInfo.custRole}}" placeholder='请输入新职位' />
+	</view>
+	<view class='item border-none'>
+		<view class="item-title item-tit">证件信息</view>
+		<view class="item-input pl-113 lh-70">请上传证件信息</view>
+	</view>
+	<view class='imgs'>
+		<view class="img-item-a">
+			<block wx:if="{{custInfo.idCardZmImg}}">
+				<image wx:if="{{editInfo}}" class="img-del" src="{{deleteImg}}" data-baseUrl="idCardZmImg" bindtap="_delImg"></image>
+				<image class="img-item-a-o" src="{{util._getImageUrl(custInfo.idCardZmImg)}}"></image>
+			</block>
+			<block wx:else>
+				<view class="img-item-a-x" data-baseUrl="idCardZmImg" bindtap="_getImage">+</view>
+				<view class="img-item-a-t">身份证正面照</view>
+			</block>
+		</view>
+		<view class="img-item-a">
+			<block wx:if="{{custInfo.idCardFmImg}}">
+				<image wx:if="{{editInfo}}" class="img-del" src="{{deleteImg}}" data-baseUrl="idCardFmImg" bindtap="_delImg"></image>
+				<image class="img-item-a-o" src="{{util._getImageUrl(custInfo.idCardFmImg)}}"></image>
+			</block>
+			<block wx:else>
+				<view class="img-item-a-x" data-baseUrl="idCardFmImg" bindtap="_getImage">+</view>
+				<view class="img-item-a-t">身份证反面照</view>
+			</block>
+		</view>
+		<view class="img-item-a">
+			<block wx:if="{{custInfo.custRoleImg}}">
+				<image wx:if="{{editInfo}}" class="img-del" src="{{deleteImg}}" data-baseUrl="custRoleImg" bindtap="_delImg"></image>
+				<image class="img-item-a-o" src="{{util._getImageUrl(custInfo.custRoleImg)}}"></image>
+			</block>
+			<block wx:else>
+				<view class="img-item-a-x" data-baseUrl="custRoleImg" bindtap="_getImage">+</view>
+				<view class="img-item-a-t">相关资质</view>
+			</block>
+		</view>
+
+	</view>
+	<view>
+		<view class="item code-item ">
+			<view class="item-title {{editInfo?'item-tit':''}}">姓名</view>
+			<input disabled="{{!editInfo}}" class="item-input border-b-none" placeholder="请输入身份证姓名" bindinput="_setParams" data-key="username" value="{{custInfo.username}}"></input>
+		</view>
+		<view class="item code-item">
+			<view class="item-title {{editInfo?'item-tit':''}}">手机号</view>
+			<input disabled="{{!editInfo}}" class="item-input" placeholder="请输入手机号" type="number" bindinput="_setParams" data-key="phone" value="{{custInfo.phone}}"></input>
+		</view>
+	</view>
+	<view class="item code-item" wx:if="{{editInfo}}">
+		<view class="item-title {{editInfo?'item-tit':''}}">验证码</view>
+		<input class="item-input code-input border-t-none" placeholder="请输入验证码" bindinput="_setParams" data-key="code"></input>
+		<view bindtap="_getCode" class="code-btn">{{stateTime?stateTime+"s":"获取验证码"}}</view>
+	</view>
+
+	<button wx:if="{{editInfo}}" class="certification-btn" bindtap="_certification">立即认证</button>
+	<view wx:if="{{editInfo}}" class="edit" bindtap="_edit">取消</view>
+	<button wx:else class="{{editInfo?'edit':'certification-btn'}}" bindtap="_edit">编辑</button>
+
+</view> -->
+
+<!-- 画布 -->
+<view class="canvas-box">
+	<canvas class="QRCanvas" canvas-id="QRCanvas"/>
+</view>
+<!-- 回复提示框 -->
+<view wx:if="{{commentFlag}}" class="input" style="bottom:{{bottom}}px">
+	<input value="{{content}}" placeholder='请输入留言内容' bindconfirm="_sendMsg" bindinput='_setParams' adjust-position="{{false}}" auto-focus bindfocus="_contentFoucus" bindblur="_contentBlur" data-key="content"></input>
+	<view class="button" bindtap='_sendMsg'>发送</view>
+</view>

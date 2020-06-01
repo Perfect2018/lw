@@ -1,0 +1,39 @@
+<!--pages/personalCenter/personalCenter.wxml-->
+<wxs src="../../wxs/util.wxs" module="util"></wxs>
+<view class="personalCenter-head">
+  <view class="card" wx:if="{{custInfo.isAuth==='01'&&custInfo.custCardImg}}">
+    <image class="img" src="{{util._getImageUrl(custInfo.custCardImg)}}" bindtap="_previewImage" data-url="{{custInfo.custCardImg}}" bindlongpress="_savePosterImage"></image>
+    <!-- <image class="img" src="{{custInfo.custCardImg}}" bindtap="_previewImage" data-url="{{custInfo.custCardImg}}" bindlongpress="_savePosterImage"></image> -->
+  </view>
+  <view class="card-btns">
+    <button class="card-btn" bindtap="_toShare">生成名片</button>
+  </view>
+</view>
+<!-- <view class="navList"> -->
+  <!-- 留言信息 -->
+  <!-- <view class="nav {{navIndex==0?'active':''}}" data-index="0" bindtap="_setNavIndex">写留言</view> -->
+  <!-- <view class="nav {{navIndex==1?'active':''}}" data-index="1" bindtap="_setNavIndex">历史发布</view> -->
+<!-- </view> -->
+<!-- 写留言 -->
+<!-- <view wx:if="{{navIndex===0}}">
+  <comment-list comment-list="{{commentList}}" bind:reply="_reply" cusr-id="{{custInfo.id}}"></comment-list>
+  <view class="comment-btn" wx:if="{{!commentFlag}}" bindtap="_setCommentFlag">写留言</view>
+</view> -->
+<!-- 历史发布 -->
+<!-- <view wx:if="{{navIndex===1}}">
+  <view class="item-count">信息数：{{historyReleaseTotal}}</view>
+  <task-list task-list="{{historyReleaseList}}" task-type="mine"></task-list>
+</view> -->
+<!-- 回复提示框 -->
+<!-- <view wx:if="{{commentFlag}}" class="input" style="bottom:{{bottom}}px">
+  <input value="{{content}}" placeholder='请输入留言内容' bindconfirm="_sendMsg" bindinput='_setParams' adjust-position="{{false}}" auto-focus bindfocus="_contentFoucus" bindblur="_contentBlur" data-key="content"></input>
+  <view class="button" bindtap='_sendMsg'>发送</view>
+</view> -->
+
+<!-- 画布 -->
+<view class="canvas-box">
+	<canvas class="QRCanvas" canvas-id="QRCanvas"/>
+</view>
+<!-- 登录提示框 -->
+<popup id='popup' title='提示' content='登录后即可进行留言' type="getUserInfo" confirm-text='去登陆' bind:userinfo="_getcustInfo">
+</popup>
