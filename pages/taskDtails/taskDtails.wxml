@@ -42,14 +42,26 @@
   <view class="text">
     {{task.message.describle}}
   </view>
+  <block wx:for="{{3}}" wx:key="index">
+    <view class="detail-img">
+      <image lazy-load class="img" src="{{util._getImageUrl(task.message['img'+(index+1)])}}" mode="widthFix"></image>
+    </view>
+  </block>
   <view wx:for="{{commentList}}" wx:key='index' class="comment-item">
-    <view>{{item.comment}}</view>
-    <view class="time">{{item.createDate}}</view>
+    <view class="comment-content">{{item.comment}}</view>
+    <view class="comment-detail">
+      <image class="img" src="{{item.headImg}}" mode="scaleToFill"/>
+      <view>
+        <view>{{item.nickName}}</view>
+        <view class="time">{{util._getYMD(item.createDate)}}</view>
+      </view>
+    </view>
+    
   </view>
+  <block wx:if="{{task.message.typeClass == '02'}}">
   <view class="context" wx:if="{{isShow}}">
     <!-- <label>内容：</label> -->
-    <textarea placeholder="在此输入评论内容" placeholder-class="place-style" bindinput="getParams" data-key="comment" value="{{comment}}"></textarea>
-    
+    <textarea placeholder="在此输入评论内容" placeholder-class="place-style" bindinput="getParams" data-key="comment" value="{{comment}}" cursor-spacing='100'></textarea>
     <view>
       <button size="mini" bindtap="send">发表</button>
     </view>
@@ -59,11 +71,7 @@
     <view class="praise" bindtap="praise">{{isPraise ? '已赞':'赞'}}</view>
     <view class="comment" bindtap="comment">评论</view>
   </view>
-  <block wx:for="{{3}}" wx:key="index">
-    <view class="detail-img">
-      <image lazy-load class="img" src="{{util._getImageUrl(task.message['img'+(index+1)])}}" mode="widthFix"></image>
-    </view>
-  </block>
+ </block>
   <!-- 地址 -->
   <view class="text" wx:if="{{task.message.address}}">地址：{{task.message.address}}</view>
 </view>

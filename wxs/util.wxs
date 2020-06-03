@@ -1,7 +1,7 @@
 // 图片链接
 function _getImageUrl(id) {
-  // return id ? 'https://lwapi.shuguodj.com/outByteImgById?id=' + id : '';
-  return id ? 'http://192.168.1.5:8080/outByteImgById?id=' + id : '';   
+  return id ? 'https://lwapi.shuguodj.com/outByteImgById?id=' + id : '';
+  // return id ? 'http://192.168.1.5:8080/outByteImgById?id=' + id : '';   
 }
 
 // 格式km(单位)

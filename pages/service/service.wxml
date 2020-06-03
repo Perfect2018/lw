@@ -24,21 +24,21 @@
 	<view class="img-list">
 		<view wx:if="{{img1}}" class="img-item">
 			<image class="img-del" src="{{deleteImg}}" data-baseUrl="img1" bindtap="_delImg"></image>
-			<image src="{{util._getImageUrl(img1)}}"></image>
+			<image src="{{util._getImageUrl(img1)}}" class="img-a"></image>
 		</view>
 		<view class="img-item" data-baseUrl="img1" bindtap="_getImage" wx:else>
 			<image src="../../images/camera.png"></image>
 		</view>
 		<view wx:if="{{img2}}" class="img-item">
 			<image class="img-del" src="{{deleteImg}}" data-baseUrl="img2" bindtap="_delImg"></image>
-			<image src="{{util._getImageUrl(img2)}}"></image>
+			<image src="{{util._getImageUrl(img2)}}" class="img-a"></image>
 		</view>
 		<view class="img-item" data-baseUrl="img2" bindtap="_getImage" wx:else>
 			<image src="../../images/camera.png"></image>
 		</view>
 		<view wx:if="{{img3}}" class="img-item">
 			<image class="img-del" src="{{deleteImg}}" data-baseUrl="img3" bindtap="_delImg"></image>
-			<image src="{{util._getImageUrl(img3)}}"></image>
+			<image src="{{util._getImageUrl(img3)}}" class="img-a"></image>
 		</view>
 		<view class="img-item" data-baseUrl="img3" bindtap="_getImage" wx:else>
 			<image src="../../images/camera.png"></image>

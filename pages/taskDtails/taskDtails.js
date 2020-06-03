@@ -192,7 +192,7 @@ Page({
       typeClass:this.data.type
     }).then(res => {
       // console.log(res.data.message.browseNum)
-      console.log(res)
+      // console.log(res)
       res.data.message.createDate = util.dateUtils.format(res.data.message.createDate);
       this.setData({
         collection: res.data.collection === "YES" ? true : false,
@@ -248,7 +248,6 @@ Page({
     this.setData({
       isShow:true
     })
-    console.log('点了一下')
   },
 
   getParams(e){
@@ -259,7 +258,7 @@ Page({
       [key]:value
     })
   },
-
+  
   // 发表评论
   send(){
     let _this = this
@@ -282,7 +281,7 @@ Page({
         }
       })
     }
-    console.log(this.data.comment)
+    // console.log(this.data.comment)
   },
   // 获取浏览数
   // _getBrowseTasks() {

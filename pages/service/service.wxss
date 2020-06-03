@@ -119,6 +119,13 @@ page{
 .img-item image{
   width: 88rpx;
   height: 70rpx;
+  /* width: 100%;
+  height: 100%; */
+}
+
+.img-item .img-a{
+  width: 100%;
+  height: 100%;
 }
 
 .item-img-bottom{
