@@ -102,6 +102,13 @@
 					"id": -1,
 					"name": "pages/certification/Certification",
 					"pathName": "pages/certification/Certification",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/service/service",
+					"pathName": "pages/service/service",
 					"scene": null
 				}
 			]

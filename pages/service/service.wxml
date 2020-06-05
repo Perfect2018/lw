@@ -1,4 +1,5 @@
-<!--pages/service/service.wxml-->
+
+<block wx:if="{{audit=='yes'}}">
 <wxs src="../../wxs/util.wxs" module="util"></wxs>
 <view class="picker">
 	<picker mode="selector" range="{{types}}" value="{{index}}" bindchange="bindPickerChange">
@@ -48,3 +49,8 @@
 </view>
 
 <view bindtap="submit" class="submit-btn">发布</view>
+</block>
+<block wx:else>
+	<!--pages/service/service.wxml-->
+	<text>pages/service/service.wxml</text>
+</block>

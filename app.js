@@ -69,6 +69,7 @@ App({
     isLogin: false,
     quickRelease: false,
     address:"",
+    audit:'no'
   },
   
   // 获取分类并存储

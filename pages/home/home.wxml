@@ -53,7 +53,7 @@
 </block>
 <block wx:else>
 	<view class="service-item">
-    <view class="service-item-btn" bindtap="service">
+    <view class="service-item-btn" bindtap="service" wx:if="{{audit=='yes'}}">
 			<!-- <image src="../../images/f.png"></image> -->
 			发布资讯
 			<!-- <text>发布</text> -->

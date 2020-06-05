@@ -565,7 +565,6 @@ _setType(e){
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // console.log(this.data.historyReleaseList)
     this.selectOpenShop()
     let categoryAll = wx.getStorageSync("categoryAll") || false;
     if (categoryAll) {
@@ -603,7 +602,11 @@ _setType(e){
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.selectOpenShop()
+    // this.selectOpenShop()
+    // this.setData({
+    //   audit:app.globalData.audit
+    // })
+    // console.log(this.data.audit)
     if (!app.globalData.isLogin) {
       util._toast("请登录");
       setTimeout(() => {

@@ -20,6 +20,7 @@ Page({
     messageType:'03',
      // 删除图片
      deleteImg: "/images/lw-del.png",
+     audit:'no'
   },
 
   bindPickerChange(e){
@@ -99,7 +100,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+    this.setData({
+      audit:app.globalData.audit
+    })
+   console.log(this.data.audit)
   },
 
   /**

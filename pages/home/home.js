@@ -51,7 +51,8 @@ Page({
     active:true,
     isInfo:true,
     pageNum:1,
-    serviceList:[]
+    serviceList:[],
+    audit:'no'
   },
   // 获取广告和轮播图片列表
   _getAdImage() {
@@ -145,6 +146,7 @@ Page({
       })
     }
     this._getService()
+    this.selectOpenShop()
     // console.log(this.data.isInfo)
   },
 
@@ -178,10 +180,45 @@ Page({
     })
   },
 
+   // 查询状态
+   selectOpenShop(){
+    // let audit = this.data.audit
+    if(app.globalData.isLogin){
+      api._post('/selectOpenShop').then(res=>{
+        if(res.success){
+          // console.log(res)
+          app.globalData.audit=res.data
+          // console.log(app.globalData.audit)
+          this.setData({
+            audit:res.data
+          })
+          if(res.data == 'yes'){
+            wx.setNavigationBarTitle({
+              title: '发布'
+           })
+           wx.setTabBarItem({
+            index: 1,
+            text: '发布',
+          })
+          }else if(res.data == 'no'){
+            wx.setNavigationBarTitle({
+              title: '信息'
+           })
+           wx.setTabBarItem({
+            index: 1,
+            text: '信息',
+          })
+          }
+        }
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // this.selectOpenShop()
     this._getAdImage();
     // 实例化百度地图API
     bmap = new BMap.BMapWX({
@@ -200,8 +237,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    // console.log(app.globalData.audit)
     // console.log(111)
     // this._getService()
+    // this.selectOpenShop()
     // 定时获取定位
     if (!app.globalData.location) {
       app.getLocation().then(() => {
