@@ -26,32 +26,33 @@ Page({
    */
   data: {
     // 控制内容显示隐藏
-    audit:'no',
+    audit: 'no',
     // 控制提示框显示隐藏
-    isHint:true,
-    dataAll:{},
+    isHint: true,
+    dataAll: {},
+    // 是否禁言
+    state: '00',
     quickClassificationName: "",
-    historyReleaseList:[
-      {
-        messageType:'02',
-        titleName:'盘活科技',
-        id:'255'
+    historyReleaseList: [{
+        messageType: '02',
+        titleName: '盘活科技',
+        id: '255'
       },
       {
-        messageType:'01',
-        titleName:'好好干',
-        id:'255'
+        messageType: '01',
+        titleName: '好好干',
+        id: '255'
       }
     ],
     // 任务列表
     // taskList:[],
     // 验证码按钮是否展示
-    showCode:'true',
+    showCode: 'true',
     // 快捷发布
     quickRelease: false,
     // 实名判断
     isAuth: false,
-    
+
     // 实名认证时的手机号
     authPhone: "",
     // 删除图片
@@ -109,47 +110,47 @@ Page({
     lng: "",
     // 忘记密码倒计时
     stateTime: 0,
-    isShow:false,
-    radioText:"信息类别"
+    isShow: false,
+    radioText: "信息类别"
   },
   // 查询状态
-  selectOpenShop(){
+  selectOpenShop() {
     // let audit = this.data.audit
-    if(app.globalData.isLogin){
-      api._post('/selectOpenShop').then(res=>{
-        if(res.success){
-          
+    if (app.globalData.isLogin) {
+      api._post('/selectOpenShop').then(res => {
+        if (res.success) {
+
           this.setData({
-            audit:res.data
+            audit: res.data
           })
-          if(res.data == 'yes'){
+          if (res.data == 'yes') {
             wx.setNavigationBarTitle({
               title: '发布'
-           })
-           wx.setTabBarItem({
-            index: 1,
-            text: '发布',
-          })
-          }else if(res.data == 'no'){
+            })
+            wx.setTabBarItem({
+              index: 1,
+              text: '发布',
+            })
+          } else if (res.data == 'no') {
             wx.setNavigationBarTitle({
               title: '信息'
-           })
-           wx.setTabBarItem({
-            index: 1,
-            text: '信息',
-          })
+            })
+            wx.setTabBarItem({
+              index: 1,
+              text: '信息',
+            })
           }
         }
       })
     }
   },
   // 点击弹出选项框
-  itemRight(){
+  itemRight() {
     this.setData({
-      isShow:!this.data.isShow
+      isShow: !this.data.isShow
     })
-  } ,
-   // 是否添加职位
+  },
+  // 是否添加职位
   _setCustRoleFlag() {
     this.setData({
       custRoleFlag: !this.data.custRoleFlag
@@ -325,29 +326,29 @@ Page({
       url: `../imageCropper/imageCropper?baseUrl=${baseUrl}&type=${type}`
     });
   },
-  
-_setType(e){
-  // console.log(e)
-  let key = e.currentTarget.dataset.key;
-  // console.log(key)
-  let value = e.detail.value;
-  if(value == '01'){
-    this.setData({
-      radioText:'供应',
-      [key]: value
-    })
-  }else if(value == '02'){
-    this.setData({
-      radioText:'需求',
-      [key]: value
-    })
-  }else{
-    this.setData({
-      radioText:'信息类别',
-      [key]: value
-    })
-  }
-},
+
+  _setType(e) {
+    // console.log(e)
+    let key = e.currentTarget.dataset.key;
+    // console.log(key)
+    let value = e.detail.value;
+    if (value == '01') {
+      this.setData({
+        radioText: '供应',
+        [key]: value
+      })
+    } else if (value == '02') {
+      this.setData({
+        radioText: '需求',
+        [key]: value
+      })
+    } else {
+      this.setData({
+        radioText: '信息类别',
+        [key]: value
+      })
+    }
+  },
   // 设置参数
   _setParams(e) {
     // console.log(e)
@@ -406,98 +407,101 @@ _setType(e){
   },
 
   // 发布中
-  _release(){
-    let data = {
-      titleName: this.data.titleName.trim(),
-      categoryId: this.data.categoryId,
-      messageType: this.data.messageType,
-      describle: this.data.describle,
-      img1: this.data.img1,
-      img2: this.data.img2,
-      img3: this.data.img3,
-      userName: this.data.userName,
-      phone: this.data.phone,
-      vcode: this.data.code,
-      address: this.data.address,
-      lat: this.data.lat,
-      lng: this.data.lng,
-      typeClass:'01',
-    }
-    util._loading("发布中...");
-        
-    api._post("/message/insertMessage", data).then(res => {
-      if (res.success) {
-        if (this.data.verified === "Y" && !this.data.isAuth) {
-          app.globalData.custInfo.idCardZmImg = this.data.cardFront;
-          app.globalData.custInfo.idCardFmImg = this.data.cardReverse;
-          app.globalData.custInfo.isAuth = "01";
-          this.setData({
-            isAuth: true
-          });
-        }
-        if (this.data.custRole && this.data.custRoleImg) {
-          app.globalData.custInfo.custRole = this.data.custRole;
-          app.globalData.custInfo.custRoleImg = this.data.custRoleImg;
-        }
-
-        this.setData({
-          titleName: "",
-          classification: "",
-          categoryId: "",
-          messageType: "",
-          describle: "",
-          verified: "Y",
-          cardFront: "",
-          cardReverse: "",
-          img1: "",
-          img2: "",
-          img3: "",
-          userName: "",
-          phone: "",
-          code: "",
-          stateTime: 0,
-          quickClassificationName: "",
-          quickRelease: false,
-          quickClassificationIndex: [0, 0],
-          quickClassificationArrayMap: []
-        });
-        wx.switchTab({
-          url: '/pages/home/home',
-        });
-        util._toast("发布成功");
-      } else {
-        this.setData({
-          code: "",
-          stateTime: 0
-        });
-        util._toast("发布失败");
+  _release() {
+    if (this.data.state == '00') {
+      let data = {
+        titleName: this.data.titleName.trim(),
+        categoryId: this.data.categoryId,
+        messageType: this.data.messageType,
+        describle: this.data.describle,
+        img1: this.data.img1,
+        img2: this.data.img2,
+        img3: this.data.img3,
+        userName: this.data.userName,
+        phone: this.data.phone,
+        vcode: this.data.code,
+        address: this.data.address,
+        lat: this.data.lat,
+        lng: this.data.lng,
+        typeClass: '01',
       }
-    });
+      util._loading("发布中...");
+
+      api._post("/message/insertMessage", data).then(res => {
+        if (res.success) {
+          if (this.data.verified === "Y" && !this.data.isAuth) {
+            app.globalData.custInfo.idCardZmImg = this.data.cardFront;
+            app.globalData.custInfo.idCardFmImg = this.data.cardReverse;
+            app.globalData.custInfo.isAuth = "01";
+            this.setData({
+              isAuth: true
+            });
+          }
+          if (this.data.custRole && this.data.custRoleImg) {
+            app.globalData.custInfo.custRole = this.data.custRole;
+            app.globalData.custInfo.custRoleImg = this.data.custRoleImg;
+          }
+
+          this.setData({
+            titleName: "",
+            classification: "",
+            categoryId: "",
+            messageType: "",
+            describle: "",
+            verified: "Y",
+            cardFront: "",
+            cardReverse: "",
+            img1: "",
+            img2: "",
+            img3: "",
+            userName: "",
+            phone: "",
+            code: "",
+            stateTime: 0,
+            quickClassificationName: "",
+            quickRelease: false,
+            quickClassificationIndex: [0, 0],
+            quickClassificationArrayMap: []
+          });
+          wx.switchTab({
+            url: '/pages/home/home',
+          });
+          util._toast("发布成功");
+        } else {
+          this.setData({
+            code: "",
+            stateTime: 0
+          });
+          util._toast(res.error.msg);
+        }
+      });
+    } else {
+      util._toast("您已被禁言,请联系管理员")
+    }
   },
   // 立即发布
   _postNow() {
     var that = this
     let msg = this._taskValidate();
     if (!msg) {
-      
       // 判断是否实名
       if (this.data.isAuth) {
         that._release()
-      }else{
+      } else {
         wx.showModal({
-          title:'认证信息',
+          title: '认证信息',
           content: '填写信息可获得更多关注',
-          cancelText:'直接发布',
-          confirmText:'立即认证',
+          cancelText: '直接发布',
+          confirmText: '立即认证',
           // concelColor:'#4098FD',
-          confirmColor:'#4098FD',
-          success(res){
-        
-            if(res.confirm){
+          confirmColor: '#4098FD',
+          success(res) {
+
+            if (res.confirm) {
               wx.navigateTo({
                 url: '/pages/certification/Certification',
               })
-            }else if(res.cancel){
+            } else if (res.cancel) {
               that._release()
             }
           }
@@ -508,63 +512,63 @@ _setType(e){
       //   data.custRole = this.data.custRole;
       //   data.custRoleImg = this.data.custRoleImg;
       // }
-    
+
     } else {
       util._toast(msg);
     }
   },
 
 
-   // 获取认证信息
-   getCustInfo(){
+  // 获取认证信息
+  getCustInfo() {
     api._post("/cust/selctCust").then(res => {
       // console.log(res)
       if (res.success) {
         if (res.data.isAuth === "01") {
           this.setData({
-            isAuth:true
+            isAuth: true
           })
         }
       }
       // console.log(this.data.isAuth)
     });
   },
-    // 获取历史发布
-    // _getHistoryRelease() {
-    //   let historyReleaseList = this.data.historyReleaseList;
-    //   if (!staticData.historyEnd || !historyReleaseList.length) {
-    //     api._post("/message/selectMessageListByCustId", {
-    //       pageNum: staticData.historyPageNum
-    //     }).then(res => {
-    //       if (res.success) {
-    //         // console.log(res)
-    //         this.setData({
-    //           historyReleaseList: historyReleaseList.concat(res.data.list),
-    //           historyReleaseTotal: res.data.total
-    //         });
-    //         if (res.data.list.length >= 20) {
-    //           staticData.historyPageNum += 1;
-    //         } else {
-    //           staticData.historyEnd = true;
-    //         }
-    //       } else {
-    //         util._toast("暂无数据");
-    //       }
-    //     });
-    //   } else {
-    //     util._toast("暂无数据");
-    //   }
-    // },
-    // 提示框点击事件
-    hint(){
-      this.setData({
-        isHint:false
-      })
-    },
+  // 获取历史发布
+  // _getHistoryRelease() {
+  //   let historyReleaseList = this.data.historyReleaseList;
+  //   if (!staticData.historyEnd || !historyReleaseList.length) {
+  //     api._post("/message/selectMessageListByCustId", {
+  //       pageNum: staticData.historyPageNum
+  //     }).then(res => {
+  //       if (res.success) {
+  //         // console.log(res)
+  //         this.setData({
+  //           historyReleaseList: historyReleaseList.concat(res.data.list),
+  //           historyReleaseTotal: res.data.total
+  //         });
+  //         if (res.data.list.length >= 20) {
+  //           staticData.historyPageNum += 1;
+  //         } else {
+  //           staticData.historyEnd = true;
+  //         }
+  //       } else {
+  //         util._toast("暂无数据");
+  //       }
+  //     });
+  //   } else {
+  //     util._toast("暂无数据");
+  //   }
+  // },
+  // 提示框点击事件
+  hint() {
+    this.setData({
+      isHint: false
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.selectOpenShop()
     let categoryAll = wx.getStorageSync("categoryAll") || false;
     if (categoryAll) {
@@ -588,20 +592,20 @@ _setType(e){
 
     this.getCustInfo()
     // this._getHistoryRelease()
-    
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     // this.selectOpenShop()
     // this.setData({
     //   audit:app.globalData.audit
@@ -676,35 +680,35 @@ _setType(e){
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   // 实时获取用户位置 (逆向解析)

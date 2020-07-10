@@ -4,7 +4,9 @@
   <block wx:for="{{taskList}}" wx:key="index">
     <view class="{{isActive === true && cIndex === index ? 'active':'item'}}" bindtap="_toView" data-navigate="taskDtails" data-id="{{item.id}}" bindlongpress="delete" data-index="{{index}}" bindtouchend="_up" touchstart="_down" data-type="{{item.typeClass}}">
       <view class="taskList-img">
-        <image src="../../images/info.png"></image>
+        <image src="../../images/zd.jpg" wx:if="{{item.istop == '1'}}"></image>
+        <image src="../../images/info.png" wx:else></image>
+        <!-- <text>置顶</text> -->
       </view>
       <block wx:if="{{taskType==='detail'}}">
         <text wx:if="{{item.customer.isAuth==='01'}}" class="verified">已认证</text>
@@ -18,13 +20,13 @@
         <text class="{{item.messageType==='01'?'color-000':'color-7F7F7F'}}" class="text-right">{{item.titleName}}</text>
       </view>
     </view>
-    <block wx:if="{{taskType == 'home' && item.img1}}">
+    <!-- <block wx:if="{{taskType == 'home' && item.img1}}">
       <view class="humbnail">
         <image src="{{util._getImageUrl(item.img1)}}" lazy-load="true" mode="aspectFit"></image>
         <image src="{{util._getImageUrl(item.img2)}}" lazy-load="true" mode="aspectFit"></image>
         <image src="{{util._getImageUrl(item.img3)}}" lazy-load="true" mode="aspectFit"></image>
       </view>
-    </block>
+    </block> -->
     <!-- <block wx:if="{{taskType=='mine'}}">
       <button size="mini" class="del-btn">删除</button>
     </block> -->

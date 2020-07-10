@@ -1,8 +1,8 @@
 {
   "navigationBarTitleText": "个人中心",
   "usingComponents": {
-    "task-list": "../components/taskList/index",
-    "comment-list": "../components/commentList/index",
+    "task-list": "../../components/taskList/index",
+    "comment-list": "../../components/commentList/index",
     "popup": "../../components/popup/index"
   }
 }

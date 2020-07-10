@@ -123,6 +123,18 @@ Page({
     }
   },
 
+  // 详情
+  _toDetail(e) {
+    // console.log(e)
+    let navigatePath = e.currentTarget.dataset.navigate;
+    let id = e.currentTarget.dataset.id;
+    let type = e.currentTarget.dataset.type
+    // console.log(type)
+    wx.navigateTo({
+      url: `../${navigatePath}/${navigatePath}?id=${id}&type=${type}`
+    });
+  },
+
   // 信息/资讯
   getInfo(){
     let active = this.data.active

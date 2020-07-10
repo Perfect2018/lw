@@ -29,6 +29,19 @@ function _getYMD(timestamp) {
   }
   return timestamp;
 }
+
+function _getymd(timestamp) {
+  if (timestamp) {
+    var date = timestamp ? getDate(timestamp) : '';
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    timestamp = [y, m, d].map(_formatNumber).join("-")
+  } else {
+    timestamp = "";  
+  }
+  return timestamp;
+}
 // 保留两位数
 function _formatNumber(n) {
   n = n.toString()  
@@ -53,6 +66,11 @@ function _showOnDestributionPrice(totalAmt, onDestributionPrice) {
   return Number(totalAmt) < Number(onDestributionPrice);
 }
 
+// 提取市名
+function reg(str){
+  var reg = getRegExp("(?<=省).*?(?=市)",'g');
+  return str.match(reg)
+}
 
 
 module.exports = {
@@ -61,7 +79,9 @@ module.exports = {
   _getKm: _getKm,
   _toFixed: _toFixed,
   _getYMD: _getYMD,
+  _getymd:_getymd,
   _getIsNull: _getIsNull,
   _isNotNull: _isNotNull,
+  _reg:reg,
   _showOnDestributionPrice: _showOnDestributionPrice
 }

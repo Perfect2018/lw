@@ -1,6 +1,6 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "task-list": "../components/taskList/index"
+    "task-list": "../../components/taskList/index"
   }
 }
